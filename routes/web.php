@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $user = User::factory()->create();
+
+    $user->name = 'something';
+
+    $user->save(); // updated_at will be a carbon instance. 👍
+
+    // $user->withoutTimestamps(fn () => $user->save()); // updated_at will be a string. 👎
 });
